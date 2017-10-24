@@ -10,4 +10,15 @@ public class MyService {
 	public void doIt(User user, int i ) {
 		
 	}
+	
+/*	private Connection connection;
+	
+	public void doSomeJDBCStuff() {
+		try {
+		connection.close();
+		}
+		catch(SQLException exe) {
+			exe.printStackTrace();
+		}
+	}*/
 }

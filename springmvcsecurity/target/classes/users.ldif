@@ -1,0 +1,60 @@
+dn: ou=groups,dc=springframework,dc=org
+objectClass: top
+objectClass: organizationalUnit
+ou: groups
+
+dn: ou=people,dc=springframework,dc=org
+objectClass: top
+objectClass: organizationalUnit
+ou: people
+
+dn: uid=rajiv,ou=people,dc=springframework,dc=org
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+ou: inetOrgPerson
+cn: Rajiv Chaudhuri
+sn: Chaudhuri
+uid: rajiv
+userPassword: secret
+
+dn: uid=tithi,ou=people,dc=springframework,dc=org
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+ou: inetOrgPerson
+cn: Tithi Chaudhuri
+sn: Chaudhuri
+uid: tithi
+userPassword: secret
+
+dn: uid=bubai,ou=people,dc=springframework,dc=org
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+ou: inetOrgPerson
+cn: Debabrata Chatterjee
+sn: Chatterjee
+uid: bubai
+userPassword: secret
+
+dn: cn=user,ou=groups,dc=springframework,dc=org
+objectClass: top
+objectClass: groupOfNames
+cn: user
+member: uid=rajiv,ou=people,dc=springframework,dc=org
+member: uid=tithi,ou=people,dc=springframework,dc=org
+member: uid=bubai,ou=people,dc=springframework,dc=org
+
+dn: cn=teller,ou=groups,dc=springframework,dc=org
+objectClass: top
+objectClass: groupOfNames
+cn: teller
+member: uid=rajiv,ou=people,dc=springframework,dc=org
+member: uid=tithi,ou=people,dc=springframework,dc=org
+
+dn: cn=supervisor,ou=groups,dc=springframework,dc=org
+objectClass: top
+objectClass: groupOfNames
+cn: supervisor
+member: uid=rajiv,ou=people,dc=springframework,dc=org

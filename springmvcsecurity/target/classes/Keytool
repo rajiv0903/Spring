@@ -1,0 +1,2 @@
+1. Go to inside Tomcat bin directory 
+2. keytool -genkey -alias tomcat_keystore -keyalg RSA -keystore E:\apache-tomcat-7.0.82\certs\tomcat_keystore

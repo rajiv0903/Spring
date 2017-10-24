@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/security 
+		http://www.springframework.org/schema/security/spring-security.xsd">
+
+	<!-- For LDAP Authentication -->
+	<ldap-server ldif="classpath:users.ldif"/>
+	<!-- End -->
+
+	<!-- For In Memory Authentication and Authorization -->
+	<!-- 
+	<http auto-config="true"> 
+		<intercept-url pattern="/**" access="ROLE_USER"/> 
+		</http> 
+	<authentication-manager> 
+		<authentication-provider> 
+			<user-service> 
+				<user name="rajiv" password="secret" authorities="ROLE_USER"/> 
+				<user name="tithi" password="secret2" authorities="ROLE_USER"/>
+			 </user-service> 
+		</authentication-provider> 
+	</authentication-manager> -->
+	<!-- End In Memory Authentication and Authorization -->
+
+	<!-- For Database Driven Authentication and Authorization -->
+	<!-- 
+	<http auto-config="true"> 
+		<intercept-url pattern="/login.html" access="IS_AUTHENTICATED_ANONYMOUSLY"/> 
+		<intercept-url pattern="/loginFailed.html" access="IS_AUTHENTICATED_ANONYMOUSLY"/> 
+		<intercept-url pattern="/logout.html" access="IS_AUTHENTICATED_ANONYMOUSLY"/> 
+		<intercept-url pattern="/403.html" access="IS_AUTHENTICATED_ANONYMOUSLY"/> 
+		<intercept-url pattern="/**" access="ROLE_USER"/> <http-basic/> Basic Authentication 
+		<form-login login-page="/login.html" authentication-failure-url="/loginFailed.html"/> 
+		<logout logout-success-url="/logout.html"/> <access-denied-handler error-page="/403.html"/> 
+	</http> -->
+
+	<!-- For Database Driven Authentication and Authorization Using Expression -->
+	<!-- requires-channel force to use htpps - redirect non secure url to http -->
+	<http auto-config="true" use-expressions="true">
+		<intercept-url pattern="/login.html" access="permitAll"  requires-channel="https"/>
+		<intercept-url pattern="/loginFailed.html" access="permitAll" requires-channel="https"/>
+		<intercept-url pattern="/logout.html" access="permitAll" requires-channel="https"/>
+		<intercept-url pattern="/403.html" access="permitAll" requires-channel="https"/>
+		<intercept-url pattern="/**" access="hasRole('ROLE_USER')" requires-channel="https"/>
+		<!-- <http-basic/> --> <!-- Basic Authentication -->
+		<form-login login-page="/login.html" authentication-failure-url="/loginFailed.html" />
+		<logout logout-success-url="/logout.html" />
+		<access-denied-handler error-page="/403.html" />
+	</http>
+
+	<!-- 
+	<authentication-manager> 
+		<authentication-provider user-service-ref="userDetailsService"/> 
+	</authentication-manager> -->
+
+	<!-- Alternate way to not creating userDetailsService -->
+	<!-- 
+	<authentication-manager> 
+		<authentication-provider> 
+			<jdbc-user-service data-source-ref="dataSource"/> 
+		</authentication-provider> 
+	</authentication-manager> -->
+	
+	<!-- Alternate way to not creating userDetailsService with Password Encoder -->
+	<!-- 
+	<authentication-manager>
+		<authentication-provider>
+			<password-encoder hash="bcrypt" />
+			<jdbc-user-service data-source-ref="dataSource" />
+		</authentication-provider>
+	</authentication-manager>
+	 -->
+	 
+	 <!-- Authentication Manager for LDAP -->
+	 <authentication-manager>
+	 	<ldap-authentication-provider 
+	 		group-search-base="ou=groups"
+	 		group-search-filter="member={0}"
+	 		user-search-base="ou=people"
+	 		user-search-filter="uid={0}" />
+	 </authentication-manager>
+
+	<beans:bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<beans:property name="driverClassName" value="com.mysql.jdbc.Driver"></beans:property>
+		<beans:property name="url"
+			value="jdbc:mysql://localhost:3306/fitnesstracker"></beans:property>
+		<beans:property name="username" value="root"></beans:property>
+		<beans:property name="password" value="password"></beans:property>
+	</beans:bean>
+
+	<beans:bean id="userDetailsService"
+		class="org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl">
+		<beans:property name="dataSource" ref="dataSource"></beans:property>
+	</beans:bean>
+	<!-- End Database Driven Authentication and Authorization -->
+
+
+</beans:beans>

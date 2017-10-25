@@ -14,6 +14,11 @@ public class SystemArchitecture {
 		
 	}
 	
+	@Pointcut("execution(* com.practice.spring.springaoparch.ffdc.service.*.*(..))")
+	public void ServiceFFDC() {
+		
+	}
+	
 /*	@Pointcut("execution(* (@org.springframework.stereotype.Repository *).*(..))")
 	public void Repository() {
 		

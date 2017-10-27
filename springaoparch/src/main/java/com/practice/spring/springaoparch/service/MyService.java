@@ -8,7 +8,7 @@ import com.practice.spring.springaoparch.model.User;
 public class MyService {
 
 	public void doIt(User user, int i ) {
-		
+		System.out.println("hi");
 	}
 	
 /*	private Connection connection;

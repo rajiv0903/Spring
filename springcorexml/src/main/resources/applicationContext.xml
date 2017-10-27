@@ -6,7 +6,7 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<!-- To load Properties only -->
-	<context:property-placeholder location="app.properties" />
+	<context:property-placeholder location="classpath:/app.properties" />
 
 	<bean name="customerRepository" 
 		class="com.practice.spring.springcorexml.repository.CustomerRepositoryImpl">

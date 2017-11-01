@@ -1,0 +1,32 @@
+html, body {
+	height: 100%;
+}
+html {
+	display: table;
+	width: 100%;
+}
+body {
+	display: table-cell;
+	text-align: center;
+	vertical-align: middle;
+	background: wheat;
+}
+table{
+	margin: auto;
+	font-weight: bold;
+}
+table thead{
+	background-color: #FF9800;
+}
+
+.error {
+	color: #ff0000;
+}
+
+.errorblock {
+	color: #000;
+	background-color: #ffEEEE;
+	border: 3px solid #ff0000;
+	padding: 8px;
+	margin: 16px;
+}

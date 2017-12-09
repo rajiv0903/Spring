@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+
+	<!-- To load Properties only -->
+	<!-- <context:property-placeholder location="classpath:/app.properties" 
+		/> -->
+		
+	<import resource="classpath:config/my-roperties.xml"/>
+	
+
+	<!-- <bean id="myProperties"
+		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="ignoreResourceNotFound" value="true" />
+		<property name="locations">
+			<list>
+				<value>classpath:/app.properties</value>
+			</list>
+		</property>
+	</bean> -->
+
+	<!-- Enable Annotation based Declarative Transaction Management -->
+	<!-- <tx:annotation-driven proxy-target-class="true" transaction-manager="transactionManager" /> -->
+
+	<!-- Initialization for TransactionManager -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- MySQL DB DataSource -->
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/movie_ticket?autoReconnect=true" />
+		<property name="username" value="root" />
+		<property name="password" value="password" />
+	</bean>
+
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean id="movieWorldTicketDAO"
+		class="com.practice.spring.springcoremovie.dao.MovieWorldTicketDAO">
+		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
+	</bean>
+
+	<bean name="movieWorldTicketBO"
+		class="com.practice.spring.springcoremovie.bo.MovieWorldTicketBO">
+		<constructor-arg index="0" ref="movieWorldTicketDAO" />
+		<property name="transactionManager" ref="transactionManager" />
+	</bean>
+
+	<bean name="movieWorldTicketFacade"
+		class="com.practice.spring.springcoremovie.facade.MovieWorldTicketFacade">
+		<constructor-arg index="0" ref="movieWorldTicketBO" />
+	</bean>
+
+	<bean name="movieWorldTicketManager"
+		class="com.practice.spring.springcoremovie.delegate.MovieWorldTicketManager">
+		<constructor-arg index="0" ref="movieWorldTicketFacade" />
+	</bean>
+
+</beans>

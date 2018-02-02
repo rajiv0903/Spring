@@ -1,0 +1,33 @@
+Sprint 14- 
+
+CMMBSSTA01-962: (Tech) Improve CAST for MBSP
+
+CMMBSSTA01-946: (Tech) Delete Old Transaction History Endpoint and Test
+
+CMMBSSTA01-960: Deletion of JMS Related Classes
+
+CMMBSSTA01-941 : (Tech) Logging API to capture UI logs- Channel Incorporated
+
+CMMBSSTA01-1022: (Tech) Maintain versions for transaction request- JUnit Test Cases
+
+CMMBSSTA01-46:(Lender page) Amount Field business rule and validations
+
+CMMBSSTA01-760: (Trader page) Trader price input validations
+
+Sprint 15- 
+
+CMMBSSTA01-1040: (Trader page) Allow '+' in third digit of ticks field and display in ticket and trx history
+    CMMBSSTA01-1068: API Development
+    CMMBSSTA01-1069: Services Unit Testing
+    CMMBSSTA01-1071: API Test case and Testing
+    
+CMMBSSTA01-883: (Lender page) Race conditions - simultaneous trader repricing issue
+    CMMBSSTA01-1061: API Integration support -Versioning- Remove Backward Compatibility
+    CMMBSSTA01-1107: API Integration Validation- User Has to Be Valid
+    CMMBSSTA01-1108: API- Prevent Concurrent Request from Same Lender
+    CMMBSSTA01-1112: API Test case and Testing
+    CMMBSSTA01-1114: Performance Test Script Update
+    
+CMMBSSTA01-1119: Check for multiple trades request with same product, coupon amount should be at user level
+CMMBSSTA01-1024: (Tech) Add retry in Trade Service through file system
+CMMBSSTA01-1046: (Tech) Monitoring alerts for MBSP
